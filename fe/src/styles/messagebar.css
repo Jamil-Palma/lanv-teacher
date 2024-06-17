@@ -1,0 +1,10 @@
+.msg-bar-container {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .msg-box {
+    width: 80%;
+  }
+  
