@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { AppBar, Typography } from "@mui/material";
 import MessageBar from "./components/MessageBar";
 import TaskSelector from "./components/TaskSelector";
@@ -9,15 +9,20 @@ function App() {
 
   return (
     <div className="App">
-      <AppBar position="static">
-        <Typography variant="h6" component="div">
-          Chatting with a Chatbot!
-        </Typography>
-      </AppBar>
       {selectedTaskFilename ? (
-        <MessageBar selectedTaskFilename={selectedTaskFilename} setSelectedTaskFilename={setSelectedTaskFilename} />
+        <MessageBar
+          selectedTaskFilename={selectedTaskFilename}
+          setSelectedTaskFilename={setSelectedTaskFilename}
+        />
       ) : (
-        <TaskSelector setSelectedTaskFilename={setSelectedTaskFilename} />
+        <div>
+          <AppBar position="static">
+            <Typography variant="h3" component="div">
+              Chatting with NVIDIA AI!
+            </Typography>
+          </AppBar>
+          <TaskSelector setSelectedTaskFilename={setSelectedTaskFilename} />
+        </div>
       )}
     </div>
   );
