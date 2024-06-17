@@ -1,0 +1,15 @@
+{
+    "steps": [
+        "Step 1: Understand the Criteria Evaluation Chain (CriteriaEvalChain) tool\nThe Criteria Evaluation Chain is a tool that allows you to assess a model's output using a specific rubric or criteria set. It is useful for verifying if an output meets a defined set of criteria.",
+        "Step 2: Familiarize yourself with the CriteriaEvalChain class\nTo understand the functionality and configurability of the CriteriaEvalChain tool, refer to the reference documentation of the CriteriaEvalChain class.",
+        "Step 3: Define the criteria for evaluation\nIn this example, we will use the CriteriaEvalChain to check whether an output is concise. Therefore, our criterion for evaluation is \"conciseness\".",
+        "Step 4: Create the evaluation chain\nTo create the evaluation chain, call the CriteriaEvalChain with the criterion for evaluation (in our case, \"conciseness\") as an argument.",
+        "Step 5: Evaluate outputs using the evaluation chain\nTo evaluate outputs against the criterion set, the evaluation chain exposes an evaluate\\_strings method, which accepts a list of strings as input.",
+        "Step 6: Interpret the evaluation results\nThe evaluate\\_strings method returns a dictionary of results, including the number of strings that meet the criterion, the number of strings that do not meet the criterion, and a list of strings that do not meet the criterion. Use this information to assess the model's output.",
+        "Step 7: Use custom criteria (optional)\nIf you want to evaluate outputs against your own custom criteria, or if you want to be more explicit in the definition of pre-implemented criteria, pass in a dictionary of \"criterion name\": \"criterion description\" as an argument when initializing the CriteriaEvalChain.",
+        "Step 8: Use a custom rubric (optional)\nIf you have a custom rubric for evaluating model outputs, you can use it instead of the pre-implemented criteria. To do this, create a single evaluator per criterion using your ConstitutionalPrinciple objects, and instantiate the chain with your custom rubric.",
+        "Step 9: Customize the prompt (optional)\nIf you want to customize the prompt used to evaluate model outputs, you can initialize the evaluator with a custom prompt template as an argument when instantiating the CriteriaEvalChain.\n\nOverall, the CriteriaEvalChain is a flexible and customizable tool for evaluating model outputs against a specific set of criteria. By following these steps, you can create a step-by-step guide on how to use the CriteriaEvalChain to evaluate model outputs for conciseness or any other criterion of your choice."
+    ],
+    "task": "Criteria_Evalua",
+    "summary_task": ""
+}

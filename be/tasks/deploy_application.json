@@ -1,0 +1,10 @@
+{
+    "task": "Deploy application",
+    "steps": [
+      "Choose deployment platform",
+      "Set up CI/CD pipeline",
+      "Deploy application"
+    ],
+    "summary_task": "Deploy the application to the chosen platform with CI/CD pipeline set up for automated deployment."
+  }
+  

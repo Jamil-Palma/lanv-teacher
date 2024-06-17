@@ -1,0 +1,14 @@
+{
+    "steps": [
+        "Step 1:** Ensure you meet the following prerequisites:\n\n* Access and login to NVIDIA NGC.\n* Have access to an NVIDIA Volta, Turing, or Ampere architecture-based GPU.\n* Have Docker installed with support for NVIDIA GPUs.\n* Obtain a free trial license to install NVIDIA Riva from the NVIDIA AI Enterprise Trial.\n* Have at least 15 GB of free disk space on your workstation.\n\n**",
+        "Step 2:** Deploy Riva Speech AI using one of the following options:\n\n* **Local Docker:**\n\t1. Download the Quick Start scripts for your platform (Linux x86_64 or Linux ARM64) from the NVIDIA NGC catalog or using the NGC CLI tool.\n\t2. Initialize and start Riva by running the `riva_init.sh` script. This will download and prepare Docker images and models.\n\t3. Launch the server by running the `riva_start.sh` script. This can take up to an hour on an average internet connection.\n\t4. Optionally, modify the `config.sh` file within the quickstart directory with your preferred configuration.\n* **Kubernetes (not supported for embedded platforms):**\n\t1. Follow the instructions in the NVIDIA Riva documentation to deploy Riva to a Kubernetes cluster using the Riva Helm Chart.\n\n**",
+        "Step 3:** Ensure that you have modified the `config.sh` file within the quickstart directory with your preferred configuration, as necessary.\n\n**",
+        "Step 4:** Initialize and start Riva by running the appropriate script based on your deployment option.\n\n**",
+        "Step 5:** Run through the different tutorials on GitHub to use the Riva API.\n\n**",
+        "Step 6:** Use Riva command-line clients to perform various tasks, such as:\n\n* Transcribe audio (Automatic Speech Recognition or ASR) by running the `riva_asr.sh` script for streaming or offline recognition.\n* Synthesize text-to-speech (TTS) by running the `riva_tts.sh` script.\n* Translate text or speech using NeMo (NVIDIA's open-source toolkit for conversational AI) by running the appropriate commands.\n\n**",
+        "Step 7:** Shut down the server when finished.\n\n**",
+        "Step 8:** For more information on how to customize a local deployment, refer to the NVIDIA Riva documentation on Local (Docker).\n\nBy following these steps, you will be able to deploy the Riva server with pretrained models and use the API for various speech AI tasks. To learn more about Riva Speech AI Skills and how they can be used in real applications, visit the NVIDIA Riva Developer page."
+    ],
+    "task": "Quick_Start_Gui",
+    "summary_task": ""
+}
