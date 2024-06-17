@@ -3,7 +3,6 @@ import re
 import json
 from dotenv import load_dotenv
 
-# Cargar variables de entorno antes de cualquier otra operación
 load_dotenv()
 
 from fastapi import FastAPI, HTTPException, Query
@@ -33,19 +32,17 @@ app.add_middleware(
 class UserQuery(BaseModel):
     input_text: str
     conversation_id: str = None
-    filename: str = None  # Cambiado a filename
+    filename: str = None
 
-# Inicializar TaskManager
 tasks_dir = os.path.join(os.path.dirname(__file__), 'tasks')
 task_manager = TaskManager(tasks_dir)
 
-# Inicializar ConversationManager
+
 model_name = os.getenv("NVIDIA_MODEL", "mistralai/mixtral-8x7b-instruct-v0.1")
 nvidia_client = NvidiaLangChainClient(model=model_name)
 evaluator = AnswerEvaluator(model=model_name)
 conversation_manager = ConversationManager(evaluator)
 
-# Verificar nodos en el grafo
 print(f"Graph nodes: {conversation_manager.graph_manager.get_nodes()}")
 
 @app.post("/query")

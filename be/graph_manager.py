@@ -1,7 +1,7 @@
 from langgraph.graph import StateGraph
 from langgraph.graph.message import add_messages
 from typing import Annotated, List, Dict, TypedDict
-from chatbot_node import chatbot  # Importar la función chatbot
+from chatbot_node import chatbot
 
 class Task(TypedDict):
     messages: Annotated[List[Dict[str, str]], add_messages]

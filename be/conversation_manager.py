@@ -20,7 +20,6 @@ class ConversationManager:
             "all_steps_completed": False,
             "summary_task": task["summary_task"]
         }
-        # Add first step to messages
         self.conversations[conversation_id]["messages"].append({"role": "assistant", "content": task["steps"][0]})
         print(f"Initialized conversation {conversation_id} with task {task['task']}")
         return conversation_id
