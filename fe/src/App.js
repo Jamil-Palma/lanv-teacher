@@ -26,23 +26,24 @@ const App = () => {
   }, []);
 
   const selectTask = async (filename) => {
-    setSelectedTaskFilename(filename); // Cambiado a filename
+    setSelectedTaskFilename(filename);
     setMessages([]);
     setConversationId(null);
     setCurrentStepIndex(0);
     setAllTasksCompleted(false);
 
     try {
+      console.log("filename", filename);
       const response = await axios.get(`http://localhost:8000/task_by_filename/${filename}`);
       console.log("file name: ", filename)
       const taskDetails = response.data;
-      console.log('Selected task details:', taskDetails); // Debugging line
+      console.log('Selected task details:', taskDetails);
       setCurrentTask(taskDetails);
 
       // Iniciar la tarea seleccionada
       const startResponse = await axios.post('http://localhost:8000/initialize_task', {
         input_text: '',
-        filename: filename // Cambiado a filename
+        filename: filename
       });
 
       const { response: botResponse, conversation_id, current_step_index } = startResponse.data;
@@ -65,21 +66,18 @@ const App = () => {
 
       const { instructions, filename } = response.data;
       console.log("file name: ", filename)
-      // Obtener detalles de la tarea por el nombre del archivo
       const taskResponse = await axios.get(`http://localhost:8000/task_by_filename/${filename}`);
       setSelectedTaskFilename(filename)
       const taskDetails = taskResponse.data;
-    // Iniciar la tarea seleccionada
-    const startResponse = await axios.post('http://localhost:8000/initialize_task', {
+      const startResponse = await axios.post('http://localhost:8000/initialize_task', {
         input_text: '',
-        filename: filename // Cambiado a filename
-    });
+        filename: filename
+      });
 
+      const { response: botResponse, conversation_id, current_step_index } = startResponse.data;
 
-        const { response: botResponse, conversation_id, current_step_index } = startResponse.data;
-
-        setConversationId(conversation_id);
-        setMessages([{ role: 'assistant', content: taskDetails.steps[0] }]);
+      setConversationId(conversation_id);
+      setMessages([{ role: 'assistant', content: taskDetails.steps[0] }]);
       setCurrentTask(taskDetails);
       setCurrentStepIndex(0);
       setAllTasksCompleted(false);
@@ -89,9 +87,9 @@ const App = () => {
     } catch (error) {
       console.error("Error processing URL:", error);
       if (error.response) {
-        console.error("Error response data:", error.response.data); // Log de la respuesta del error
+        console.error("Error response data:", error.response.data);
       } else {
-        console.error("Error details:", error.message); // Log de los detalles del error si no hay respuesta
+        console.error("Error details:", error.message); 
       }
     }
   };
@@ -103,10 +101,10 @@ const App = () => {
       const response = await axios.post('http://localhost:8000/query', {
         input_text: inputText,
         conversation_id: conversationId,
-        filename: selectedTaskFilename // Cambiado a filename
+        filename: selectedTaskFilename 
       });
 
-      console.log('API response:', response); // Log completo de la respuesta
+      console.log('API response:', response);
 
       const { response: botResponse, success, conversation_id, current_step_index, all_steps_completed } = response.data;
 
@@ -121,9 +119,9 @@ const App = () => {
     } catch (error) {
       console.error("Error sending message:", error);
       if (error.response) {
-        console.error("Error response data:", error.response.data); // Log de la respuesta del error
+        console.error("Error response data:", error.response.data);
       } else {
-        console.error("Error details:", error.message); // Log de los detalles del error si no hay respuesta
+        console.error("Error details:", error.message); 
       }
     }
   };
@@ -139,10 +137,11 @@ const App = () => {
           <ul>
             {tasks.map((task, index) => (
               <li key={index} style={{ marginBottom: '10px' }}>
-                <button onClick={() => selectTask(task.file_name)}>{task}</button> {/* Cambiado a filename */}
+                <button onClick={() => selectTask(task.file_name)}>{task.task}</button> 
               </li>
             ))}
           </ul>
+
           <div>
             <h2>Or Enter a URL to Process</h2>
             <input
