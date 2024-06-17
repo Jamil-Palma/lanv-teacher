@@ -127,11 +127,49 @@ async def process_web(query: UserQuery):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="An error occurred while processing the request")
+    
+@app.post("/summary")
+async def process_summary(query: UserQuery):
+    try: 
+        page = requests.get(query.input_text)
+        soup = BeautifulSoup(page.content, 'html.parser')
+        title = soup.title.text
+        title = title.replace("-", "").replace(" ", "_")
+
+        article_text = " ".join([p.text for p in soup.find_all('p')])
+        prompt = """You are an AI language model. Please summarize the following text \
+        in no more than one paragraph.
+
+        ## Article Content:
+        """ + article_text
+
+        filename = title[:15]
+        response = nvidia_client.query(prompt)
+        save_to_json(os.path.join('tasks', filename), {"task": filename, "summary_task": response})
+        return {"summary": response, "filename": f"{filename}.json"}
+    except Exception as e:
+        print(f"Error: {e}")
+        raise HTTPException(status_code=500, detail="An error occurred while processing the summary")
 
 def save_to_json(filepath: str, data: dict):
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    with open(f"{filepath}.json", 'w') as file:
-        json.dump(data, file, indent=4)
+    if not os.path.exists(filepath):
+        with open(f"{filepath}.json", "w") as file:
+            json.dump(data, file, indent=4)
+    else:
+        with open(f"{filepath}.json", "r") as file:
+            existing_data = json.load(file)
+            should_update = False
+            for key, value in data.items():
+                if key not in existing_data:
+                    existing_data[key] = value
+                    should_update = True
+            if should_update:
+                with open(f"{filepath}.json", "w") as file:
+                    json.dump(existing_data, file, indent=4)
+            else:
+                print(
+                    "File exists and contains the keys to be added. No changes were made.")
 
 if __name__ == "__main__":
     import uvicorn
