@@ -5,16 +5,22 @@ class AnswerEvaluator:
         self.client = NvidiaLangChainClient(model=model)
 
     def evaluate_answer(self, original_question: str, user_answer: str, expected_answer: str) -> bool:
+
         prompt = (
-            f"You are evaluating the following interaction.\n"
+            "You are an evaluator tasked with determining if a user's response correctly completes a task. "
+            "Evaluate the interaction based on the following details:\n"
             f"Original Question: {original_question}\n"
             f"User's Answer: {user_answer}\n"
             f"Expected Answer: {expected_answer}\n\n"
-            f"Please determine if the user's answer is correct. If the user has indicated they have no questions, expressed a positive result, or stated that they have completed the task, respond with 'True'. "
-            f"Otherwise, respond with 'False'.\n"
-            f"Reply with 'True' or 'False' only."
+            "Criteria for evaluation:\n"
+            "1. If the user's answer matches the expected answer, respond with 'True'.\n"
+            "2. If the user indicates they have completed the task, uses the term 'echo' 'done' 'work', or states a positive result, respond with 'True'.\n"
+            "3. In all other cases, respond with 'False'.\n"
+            "Please reply with 'True' or 'False' only."
         )
+
         response = self.client.query(prompt)
+        print(" ---- response evaluate answer", response)
         return "true" in response.lower()
 
     def get_hint(self, original_question: str, user_answer: str) -> str:
