@@ -92,12 +92,3 @@ npm start
 ```
 
 After starting both the backend and frontend, the project should be up and running successfully.
-
-## License
-
-This project is licensed under the MIT License.
-
-```
-
-This README provides clear instructions on setting up and running the Lanv Teacher project, including the necessary environment variables and their setup, aimed at ensuring a smooth start for developers.
-```
