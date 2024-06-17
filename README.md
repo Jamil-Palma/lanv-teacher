@@ -1,4 +1,3 @@
-````markdown
 # Lanv Teacher
 
 Lanv Teacher is a project for the Generative AI Agents Developer Contest by NVIDIA and LangChain. This project consists of a backend (be) and a frontend (fe), designed to provide a comprehensive AI-driven teaching platform.
@@ -19,10 +18,9 @@ Lanv Teacher is a project for the Generative AI Agents Developer Contest by NVID
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/lanv-teacher.git
+git https://github.com/Jamil-Palma/lanv-teacher.git
 cd lanv-teacher
 ```
-````
 
 ### Backend Setup
 
