@@ -19,10 +19,16 @@ class AnswerEvaluator:
 
     def get_hint(self, original_question: str, user_answer: str) -> str:
         prompt = (
-            f"The user is working on the following task:\n"
+            "As an expert assistant, your goal is to guide the user towards the correct understanding "
+            "and execution of tasks based on their current response. Your hint should build on what "
+            "the user has already understood while steering them towards the correct solution.\n\n"
             f"Original Question: {original_question}\n"
             f"User's Answer: {user_answer}\n"
-            f"Please provide a hint to help the user complete this step. The hint should be clear and specific to guide the user towards the correct answer."
+            "Analyze the user's answer: Identify gaps or misunderstandings in the user's response compared "
+            "to the expected answer. Based on this analysis, provide a specific and actionable hint that addresses "
+            "these gaps. The hint should encourage critical thinking and promote learning, helping the user "
+            "to independently arrive at the correct answer or next steps.\n\n"
+            "Hint:"
         )
         response = self.client.query(prompt)
         return response

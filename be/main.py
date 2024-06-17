@@ -123,7 +123,7 @@ async def process_web(query: UserQuery):
         response = nvidia_client.query(prompt)
         steps = re.findall(r"(Step \d+:.*?)(?=Step \d+:|$)", response, re.DOTALL)
         steps_list = [step.strip() for step in steps]
-        save_to_json(os.path.join('tasks', filename), {"steps": steps_list, "task": filename, "summary_task": ""})
+        save_to_json(os.path.join('tasks', filename), {"steps": steps_list, "task": filename})
         return {"instructions": steps_list[0], "filename": f"{filename}.json"}
     except Exception as e:
         print(f"Error: {e}")
@@ -151,26 +151,61 @@ async def process_summary(query: UserQuery):
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="An error occurred while processing the summary")
+    
+@app.post("/instructions")
+async def process_instructions(query: UserQuery):
+    try:
+        instruction = query.input_text
+        prompt = f"""You are an expert IT instructor. I will provide you with a text instruction, and you need to create a step-by-step guide on how to complete the task described in the instruction.
+
+        Instruction: {instruction}
+
+        Generate the following:
+        1. A task title summarizing the instruction in a concise way.
+        2. A one-paragraph summary of the task.
+        3. A list of numbered steps to complete the task.
+
+        Present the output in this format:
+
+        Task Title: <title>
+
+        Summary: <one-paragraph summary>
+
+        Steps:
+        Step 1: <step 1>
+        Step 2: <step 2>
+        ...
+        """
+        response = nvidia_client.query(prompt)
+        title = response.split("Task Title: ")[1].split("\n")[0]
+        summary = response.split("Summary: ")[1].split("\n")[0]
+        steps = re.findall(r"(Step \d+:.*?)(?=Step \d+:|$)", response, re.DOTALL)
+        save_to_json(os.path.join('tasks', title.replace("-", "").replace(" ", "_")), {"task": title, "summary_task": summary, "steps": steps})
+        return {"instructions": response}
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Task not found")
 
 def save_to_json(filepath: str, data: dict):
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    if not os.path.exists(filepath):
-        with open(f"{filepath}.json", "w") as file:
-            json.dump(data, file, indent=4)
-    else:
-        with open(f"{filepath}.json", "r") as file:
+    full_path = f"{filepath}.json"
+    if os.path.exists(full_path):
+        with open(full_path, "r") as file:
             existing_data = json.load(file)
-            should_update = False
-            for key, value in data.items():
-                if key not in existing_data:
-                    existing_data[key] = value
-                    should_update = True
-            if should_update:
-                with open(f"{filepath}.json", "w") as file:
-                    json.dump(existing_data, file, indent=4)
-            else:
-                print(
-                    "File exists and contains the keys to be added. No changes were made.")
+    else:
+        existing_data = {}
+
+    should_update = False
+    for key, value in data.items():
+        if key not in existing_data or existing_data[key] != value:
+            existing_data[key] = value
+            should_update = True
+
+    if should_update:
+        with open(full_path, "w") as file:
+            json.dump(existing_data, file, indent=4)
+    else:
+        print("File exists and contains the keys to be added. No changes were made.")
+
 
 if __name__ == "__main__":
     import uvicorn
