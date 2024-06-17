@@ -118,16 +118,23 @@ async def process_web(query: UserQuery):
 
             ## Article Content:
             """ + article_text
+        prompt_summary = """You are an AI language model. Please summarize the following text \
+        in no more than one paragraph.
+
+        ## Article Content:
+        """ + article_text
+        summary =  nvidia_client.query(prompt_summary)    
 
         filename = title[:15]
         response = nvidia_client.query(prompt)
         steps = re.findall(r"(Step \d+:.*?)(?=Step \d+:|$)", response, re.DOTALL)
         steps_list = [step.strip() for step in steps]
-        save_to_json(os.path.join('tasks', filename), {"steps": steps_list, "task": filename, "summary_task": ""})
+        save_to_json(os.path.join('tasks', filename), {"steps": steps_list, "task": filename, "summary_task": summary})
         return {"instructions": steps_list[0], "filename": f"{filename}.json"}
     except Exception as e:
         print(f"Error: {e}")
         raise HTTPException(status_code=500, detail="An error occurred while processing the request")
+    
     
 @app.post("/summary")
 async def process_summary(query: UserQuery):
