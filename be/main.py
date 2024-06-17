@@ -123,7 +123,7 @@ async def process_web(query: UserQuery):
         response = nvidia_client.query(prompt)
         steps = re.findall(r"(Step \d+:.*?)(?=Step \d+:|$)", response, re.DOTALL)
         steps_list = [step.strip() for step in steps]
-        save_to_json(os.path.join('tasks', filename), {"steps": steps_list, "task": filename})
+        save_to_json(os.path.join('tasks', filename), {"steps": steps_list, "task": filename, "summary_task": ""})
         return {"instructions": steps_list[0], "filename": f"{filename}.json"}
     except Exception as e:
         print(f"Error: {e}")
