@@ -10,7 +10,8 @@ class Task(TypedDict):
     current_step_index: int
     all_steps_completed: bool
     summary_task: str
-
+    support_tasks: str
+    
 class GraphManager:
     def __init__(self):
         self.graph_builder = StateGraph(Task)
@@ -28,7 +29,6 @@ class GraphManager:
     def get_nodes(self):
         return self.graph.nodes
 
-# Ejemplo de uso
 if __name__ == "__main__":
     graph_manager = GraphManager()
-    print(f"Graph nodes: {graph_manager.get_nodes()}")  # Verificar nodos en el grafo
+    print(f"Graph nodes: {graph_manager.get_nodes()}") 

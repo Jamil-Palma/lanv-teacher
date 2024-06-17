@@ -17,24 +17,22 @@ class AnswerEvaluator:
         response = self.client.query(prompt)
         return "true" in response.lower()
 
-    def get_hint(self, original_question: str, user_answer: str, expected_answer: str) -> str:
+    def get_hint(self, original_question: str, user_answer: str) -> str:
         prompt = (
             f"The user is working on the following task:\n"
             f"Original Question: {original_question}\n"
             f"User's Answer: {user_answer}\n"
-            f"Expected Answer: {expected_answer}\n\n"
             f"Please provide a hint to help the user complete this step. The hint should be clear and specific to guide the user towards the correct answer."
         )
         response = self.client.query(prompt)
         return response
-
-    def get_super_hint(self, original_question: str, user_answer: str, expected_answer: str) -> str:
+    
+    def get_study_suggestions(self, original_question: str, user_answer: str) -> str:
         prompt = (
-            f"The user is having difficulty with the following task:\n"
+            f"The user is working on the following task and has shown difficulty:\n"
             f"Original Question: {original_question}\n"
             f"User's Answer: {user_answer}\n"
-            f"Expected Answer: {expected_answer}\n\n"
-            f"The user has made several attempts. Please provide a very detailed hint to help the user understand and complete this step."
+            f"Please suggest some topics that the user can study to improve their understanding of this task."
         )
         response = self.client.query(prompt)
         return response

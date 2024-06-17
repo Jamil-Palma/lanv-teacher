@@ -1,3 +1,4 @@
+# conversation_manager.py
 import uuid
 from typing import Dict
 from answer_evaluator import AnswerEvaluator
@@ -18,7 +19,8 @@ class ConversationManager:
             "steps": task["steps"],
             "current_step_index": 0,
             "all_steps_completed": False,
-            "summary_task": task["summary_task"]
+            "summary_task": task["summary_task"],
+            "support_tasks": "" 
         }
         self.conversations[conversation_id]["messages"].append({"role": "assistant", "content": task["steps"][0]})
         print(f"Initialized conversation {conversation_id} with task {task['task']}")
@@ -45,7 +47,8 @@ class ConversationManager:
                         "success": all_steps_completed,
                         "conversation_id": conversation_id,
                         "current_step_index": value["current_step_index"],
-                        "all_steps_completed": all_steps_completed
+                        "all_steps_completed": all_steps_completed,
+                        "support_tasks": value["support_tasks"]
                     }
         except Exception as e:
             print(f"Error: {e}")
@@ -54,5 +57,6 @@ class ConversationManager:
                 "success": False,
                 "conversation_id": conversation_id,
                 "current_step_index": state["current_step_index"],
-                "all_steps_completed": state["all_steps_completed"]
+                "all_steps_completed": state["all_steps_completed"],
+                "support_tasks": state["support_tasks"]
             }

@@ -15,7 +15,6 @@ from conversation_manager import ConversationManager
 import requests
 from bs4 import BeautifulSoup
 
-# Desactivar LangSmith
 os.environ["LANGCHAIN_TRACING_V2"] = "false"
 os.environ["LANGCHAIN_PROJECT"] = ""
 
@@ -63,7 +62,8 @@ async def process_query(query: UserQuery):
             "success": False,
             "conversation_id": query.conversation_id,
             "current_step_index": None,
-            "all_steps_completed": False
+            "all_steps_completed": False,
+            "support_tasks": ""  
         }
 
 @app.get("/tasks")

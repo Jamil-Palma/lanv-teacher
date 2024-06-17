@@ -30,10 +30,12 @@ def chatbot(state: Dict) -> Dict:
             state["all_steps_completed"] = True
             state["messages"].append({"role": "assistant", "content": "You have completed all steps."})
     else:
-        hint = evaluator.get_hint(original_question, user_message_content, state["steps"][current_step_index])
+        hint = evaluator.get_hint(original_question, user_message_content)
         print(f"Hint: {hint}")
         state["messages"].append({"role": "system", "content": hint})
 
+        study_suggestions = evaluator.get_study_suggestions(original_question, user_message_content)
+        state["support_tasks"] += study_suggestions
+
     state["current_step_index"] = current_step_index
     return state
-
