@@ -9,7 +9,7 @@ function InstructionInput({ setSelectedTaskFilename }) {
     if (instructions.trim() === '') return;
 
     try {
-      const response = await axios.post('http://localhost:8000/scraping', { input_text: instructions });
+      const response = await axios.post('http://localhost:8000/instructions', { input_text: instructions });
       const { filename } = response.data;
       setSelectedTaskFilename(filename);
     } catch (error) {

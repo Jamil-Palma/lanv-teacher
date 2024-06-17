@@ -178,10 +178,14 @@ async def process_instructions(query: UserQuery):
         """
         response = nvidia_client.query(prompt)
         title = response.split("Task Title: ")[1].split("\n")[0]
+        filename = title.replace("-", "").replace(" ", "_")
         summary = response.split("Summary: ")[1].split("\n")[0]
         steps = re.findall(r"(Step \d+:.*?)(?=Step \d+:|$)", response, re.DOTALL)
         save_to_json(os.path.join('tasks', title.replace("-", "").replace(" ", "_")), {"task": title, "summary_task": summary, "steps": steps})
-        return {"instructions": response}
+        # return {"instructions": response}
+        steps_list = [step.strip() for step in steps]
+        print(title)
+        return {"instructions": steps_list[0], "filename": f"{filename}.json"}
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Task not found")
 
