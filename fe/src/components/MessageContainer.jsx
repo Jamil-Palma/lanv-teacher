@@ -4,7 +4,6 @@ import SmartToyIcon from "@mui/icons-material/SmartToy";
 import PersonIcon from "@mui/icons-material/Person";
 
 function MessageContainer({ messageList }) {
-  console.log(messageList)
   return (
     <div className="chat-container">
       {messageList.map((message, index) => (
