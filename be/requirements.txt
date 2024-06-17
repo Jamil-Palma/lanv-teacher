@@ -1,0 +1,9 @@
+
+
+fastapi
+python-dotenv
+requests
+beautifulsoup4
+langgraph
+langchain_nvidia_ai_endpoints
+langchain_core

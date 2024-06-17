@@ -1,0 +1,10 @@
+{
+    "task": "Setup environment",
+    "steps": [
+      "Install necessary packages",
+      "Set up virtual environment",
+      "Configure environment variables"
+    ],
+    "summary_task": "Ensure all packages are installed, virtual environment is set up, and environment variables are configured correctly."
+  }
+  

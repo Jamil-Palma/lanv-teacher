@@ -1,0 +1,45 @@
+.chat-container {
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 550px;
+  overflow-y: scroll;
+}
+
+.msg-container {
+  margin-bottom: auto;
+}
+
+.message-right {
+  text-align: right;
+}
+
+.message-left {
+  text-align: left;
+}
+
+.message {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 60%;
+  word-wrap: break-word;
+}
+
+.user-message {
+  background-color: #d1e7dd; /* Color para los mensajes del usuario */
+  color: #0f5132; /* Color de texto */
+}
+
+.assistant-message {
+  background-color: #d7e0f8; /* Color para los mensajes del asistente */
+  color: #5f5fd6; /* Color de texto */
+}
+
+.author {
+  font-weight: bold;
+}
+
+.content {
+  margin-top: 5px;
+  white-space: pre-wrap;
+}

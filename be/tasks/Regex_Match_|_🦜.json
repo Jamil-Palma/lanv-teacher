@@ -1,0 +1,11 @@
+{
+    "steps": [
+        "Step 1: Identify the custom regex pattern you want to use to evaluate your chain or runnable string predictions. Make sure that your regex pattern is well-defined and covers all the possible variations you want to match.",
+        "Step 2: If you need to match against multiple patterns, use the regex union \"|\" to combine them into a single expression. For example, if you want to match either \"hello\" or \"hi\", your regex pattern would be \"hello|hi\".",
+        "Step 3: Specify any regex flags that you want to use when matching. These flags can be used to control the behavior of your regex pattern. For example, the \"i\" flag can be used to make your pattern case-insensitive.",
+        "Step 4: Use the regex\\_match evaluator to evaluate your chain or runnable string predictions against your custom regex pattern. This evaluator can be accessed via the loader, which allows you to easily integrate it into your existing workflows.",
+        "Step 5: Once you have run the regex\\_match evaluator, you can review the results to see which predictions matched your custom regex pattern and which did not. Use this information to refine your regex pattern and/or your chain or runnable string predictions as needed.\n\nHere's an example of how you might use the regex\\_match evaluator to evaluate a list of strings against a custom regex pattern:\n```python\nfrom regex_match_evaluator import regex_match_evaluator\n\n# Define your custom regex pattern\npattern = \"hello|hi\"\n\n# Specify any regex flags you want to use (optional)\nflags = \"i\"\n\n# Use the regex_match evaluator to evaluate your list of strings\nresults = regex_match_evaluator(pattern, flags, [\"hello\", \"Hi\", \"hey\"])\n\n# Review the results to see which strings matched your pattern and which did not\nfor result in results:\n    print(result)\n```\nIn this example, the output would be:\n```vbnet\nTrue\nTrue\nFalse\n```\nThis indicates that the first two strings (\"hello\" and \"Hi\") matched the custom regex pattern \"hello|hi\", while the third string (\"hey\") did not match."
+    ],
+    "task": "Regex_Match_|_\ud83e\udd9c",
+    "summary_task": ""
+}
